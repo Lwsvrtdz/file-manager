@@ -15,6 +15,22 @@ class File extends Model
         'is_folder' => 'boolean',
     ];
 
+    /**
+     * Scope a query to only include folders.
+     */
+    public function scopeWhereIsFolder($query, bool $isFolder = true)
+    {
+        return $query->where('is_folder', $isFolder);
+    }
+
+    /**
+     * Scope a query to only include files created by the given user.
+     */
+    public function scopeWhereCreatedBy($query, int $userId)
+    {
+        return $query->where('created_by', $userId);
+    }
+
     public function isOwnedBy($userId): bool
     {
         return $this->created_by == $userId;
